@@ -1,3 +1,9 @@
 body{
-    background-color:#fff;
+    background-color:cyan;
+    border: 20px solid yellow;
+}
+
+.hello{
+    color: #656565;
+    font-size: 32px;
 }

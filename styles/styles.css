@@ -16,3 +16,8 @@ body{
     text-align: center;
     vertical-align: top;
 }
+
+.clearTruth{
+    margin: 0 auto;
+    font-family: 'Courier New', Courier, monospace;
+}

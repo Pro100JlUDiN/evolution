@@ -7,3 +7,12 @@ body{
     color: #656565;
     font-size: 32px;
 }
+.dispetcher{
+    border-collapse: collapse;
+}
+.dispetcher td{
+    border: 1px solid black;
+    width: 50px;
+    text-align: center;
+    vertical-align: top;
+}

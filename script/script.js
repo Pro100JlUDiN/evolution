@@ -5,6 +5,7 @@ let deposit;
 let mission; 
 let period;
 
+
 // всплывающая тема
 alert('Поздоровался, и шо?');
 

@@ -1,11 +1,18 @@
 let num = 266219;
-let strArray;
-let numArray = [];
-strArray = num.toString().split('');
+num = num.toString().split('');
+console.log(num);
 
-let multiplication;
-for(i = 0; i < strArray.length; i++){
-    let a = Number(strArray[i]);
-    numArray *= a;
-    console.log(numArray);
+//из строк в числа
+for(let i = 0; i < num.length; i++){
+    num[i] = Number(num[i]);
 }
+console.log(typeof(num[1]));
+
+//умножение элементов
+let multiplication = 1;
+for(let i = 0; i < num.length; i++){
+    multiplication *= num[i];
+}
+console.log(multiplication);
+let exponent = multiplication ** 3;
+console.log(exponent.toString().substr(0,2));

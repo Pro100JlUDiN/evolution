@@ -1,108 +1,90 @@
 'use stric';
-// // приветствие
-// alert('Поздоровался, и шо?');
+// приветствие
+alert('Поздоровался, и шо?');
 
-// let money = 1000000; 
-// let income = 'проточка черенков для лопат';
-// let addExpenses = "Корм для меня, Ипотека, Корм для Кошки"; 
-// let deposit = false; 
-// let mission = 15000000; 
-// let period = 6;
-
-
-// console.log('Больше ничего не уметь.');
-// console.log(typeof(money));
-// console.log(typeof(income));
-// console.log(typeof(deposit));
-
-// console.log(income.toString().length);
-
-// console.log("Период " + period +  " месяцев");
-// console.log("Цель заработать " + mission + " гривень");
+let money = 1000000; 
+let income = "проточка черенков для лопат";
+let addExpenses = "Корм для меня, Ипотека, Корм для Кошки"; 
+let deposit = false; 
+let mission = 15000000; 
+let period = 6;
 
 
-// console.log(addExpenses.toLowerCase().split(', ')); 
+console.log('Больше ничего не уметь.');
+console.log(typeof(money));
+console.log(typeof(income));
+console.log(typeof(deposit));
 
-// let budegetDay = money / 30;
+console.log(income.toString().length);
 
-// // вопрос о месячном доходе
-// money = +prompt('Ваш месячный доход?');
-// console.log(money);
+console.log("Период " + period +  " месяцев");
+console.log("Цель заработать " + mission + " гривень");
 
-// // вопрос о статьях расходов
-// addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
-// console.log(addExpenses.split(', '));
 
-// // вопрос депозите
-// deposit = confirm('Есть ли у вас депозит в банке?');
-// console.log(deposit);
+console.log(addExpenses.toLowerCase().split(', ')); 
 
-// // типы данных
-// console.log(typeof(money), typeof(income), typeof(deposit));
+let budegetDay = money / 30;
 
-// // ещё 4 вопроса о статьях расходов
-// let firstMustExpenses = prompt('Какие обязательные ежемесячные расходы у вас есть?');
-// console.log(firstMustExpenses);
+// вопрос о месячном доходе
+money = +prompt('Ваш месячный доход?');
+console.log(money);
 
-// let firstExpensesPrice = +prompt('Во сколько это обойдется?');
-// console.log(firstExpensesPrice);
+// вопрос о статьях расходов
+addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
+console.log(addExpenses.split(', '));
 
-// let secondMustExpenses = prompt('Какие обязательные ежемесячные расходы у вас есть?');
-// console.log(secondMustExpenses);
+// вопрос депозите
+deposit = confirm('Есть ли у вас депозит в банке?');
+console.log(deposit);
 
-// let secondExpensesPrice = +prompt('Во сколько это обойдется?');
-// console.log(secondExpensesPrice);
+// типы данных
+console.log(typeof(money), typeof(income), typeof(deposit));
 
-// // рассчет сбережений за месяц
-// let budgetMonth = money - (firstExpensesPrice + secondExpensesPrice);
-// console.log(budgetMonth);
+// ещё 4 вопроса о статьях расходов
+let firstMustExpenses = prompt('Какие обязательные ежемесячные расходы у вас есть?');
+console.log(firstMustExpenses);
 
-// // вывод сколько месяцев нужно откладывать
-// console.log('цель будет достигнута через ' + Math.ceil(mission / budgetMonth) + ' месяцев.');
+let firstExpensesPrice = +prompt('Во сколько это обойдется?');
+console.log(firstExpensesPrice);
 
-// // сбережения в день
-// budgetDay = budgetMonth / 30;
-// console.log(Math.floor(budgetDay));
+let secondMustExpenses = prompt('Какие обязательные ежемесячные расходы у вас есть?');
+console.log(secondMustExpenses);
 
-// if(budgetDay >= 800){
-//     console.log('Высокий уровень дохода')
-// }else if(budgetDay >= 300 && budgetDay < 800){
-//     console.log('Средний уровень дохода');
-// }else if(budgetDay >= 0 && budgetDay < 300){
-//     console.log('Низкий уровень дохода');
-// }else if(budgetDay < 0){
-//     console.log('Что-то пошло не так')
-// }
+let secondExpensesPrice = +prompt('Во сколько это обойдется?');
+console.log(secondExpensesPrice);
 
-// let myFun = function(a, b, plus, minus){
-//     let res = (a > b) ? minus(a, b) : plus(a, b);
-//     console.log(res);
-// }
+// рассчет сбережений за месяц
+let budgetMonth = money - (firstExpensesPrice + secondExpensesPrice);
+console.log(budgetMonth);
 
-// myFun(
-// 4,
-// 5,
-// function(a, b){
-//     return a + b;
-// },
-// function(a, b){
-//     return a - b;
-// }
+// вывод сколько месяцев нужно откладывать
+console.log('цель будет достигнута через ' + Math.ceil(mission / budgetMonth) + ' месяцев.');
 
-let logUser = function(userData){
-    if(userData === 'admin'){
-        return 'Администратор';
-    }else{
-        return 'Пользователь';
-    }
-};
+// сбережения в день
+budgetDay = budgetMonth / 30;
+console.log(Math.floor(budgetDay));
 
-let inputUser = function(user, callback){
-    let status = 'user';
-    if(user === 'Андрей' || user === 'Василий'){
-        status = 'admin';
-    }
-    return callback(status);
+if(budgetDay >= 800){
+    console.log('Высокий уровень дохода')
+}else if(budgetDay >= 300 && budgetDay < 800){
+    console.log('Средний уровень дохода');
+}else if(budgetDay >= 0 && budgetDay < 300){
+    console.log('Низкий уровень дохода');
+}else if(budgetDay < 0){
+    console.log('Что-то пошло не так')
 }
 
-console.log(inputUser('Андрюша', logUser));
+let myFun = function(a, b, plus, minus){
+    let res = (a > b) ? minus(a, b) : plus(a, b);
+    console.log(res);
+}
+
+myFun(
+4,
+5,
+function(a, b){
+    return a + b;
+},
+function(a, b){
+    return a - b;
+}

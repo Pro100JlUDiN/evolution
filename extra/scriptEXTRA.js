@@ -1,18 +1,14 @@
-let num = 266219;
-num = num.toString().split('');
-console.log(num);
+'use stric';
 
-//из строк в числа
-for(let i = 0; i < num.length; i++){
-    num[i] = Number(num[i]);
-}
-console.log(typeof(num[1]));
+let myFunction = function(theOne){
+    let str = "str";
+    if(typeof theOne !== typeof str){
+        return "Не строка!";
+    }
+    if(theOne.length >= 30){
+        theOne = theOne.substr(0, 30) + "...";
+    }
+    return theOne = theOne.trim();
 
-//умножение элементов
-let multiplication = 1;
-for(let i = 0; i < num.length; i++){
-    multiplication *= num[i];
 }
-console.log(multiplication);
-let exponent = multiplication ** 3;
-console.log(exponent.toString().substr(0,2));
+console.log(myFunction(""));

@@ -1,25 +1,10 @@
-let money = 1000000; 
-let income = 500000;
-let addExpenses = "Корм для меня, Ипотека, Корм для Кошки"; 
-let deposit = false; 
-let mission = 15000000; 
-let period = 6;
+'use stric';
 
-// всплывающая тема
-// alert('Поздоровался, и шо?');
-
-console.log('Больше ничего не уметь.');
-console.log(typeof(money));
-console.log(typeof(income));
-console.log(typeof(deposit));
-
-console.log(income.toString().length);
-
-console.log("Период " + period +  " месяцев");
-console.log("Цель заработать " + mission + " гривень");
-
-
-console.log(addExpenses.toLowerCase().split(', ')); 
-
-let budegetDay = money / 30;
-console.log(budegetDay);
+let myFunction = function(theOne){
+    let str = "str";
+    if(typeof theOne !== typeof str){
+        return "Не строка!";
+    }
+    return DataTransferItem()
+}
+console.log(myFunction("dada"));

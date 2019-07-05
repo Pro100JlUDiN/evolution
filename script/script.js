@@ -9,38 +9,21 @@ let deposit = false;
 let mission = 15000000; 
 let period = 6;
 
-
-console.log('Больше ничего не уметь.');
-console.log(typeof(money));
-console.log(typeof(income));
-console.log(typeof(deposit));
-
-console.log(income.toString().length);
-
-console.log("Период " + period +  " месяцев");
-console.log("Цель заработать " + mission + " гривень");
-
-
-console.log(addExpenses.toLowerCase().split(', ')); 
-
 let budegetDay = money / 30;
 
 // вопрос о месячном доходе
 money = +prompt('Ваш месячный доход?');
-console.log(money);
 
 // вопрос о статьях расходов
 addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
-console.log(addExpenses.split(', '));
 
 // вопрос депозите
 deposit = confirm('Есть ли у вас депозит в банке?');
-console.log(deposit);
 
 // типы данных
 console.log(typeof(money), typeof(income), typeof(deposit));
 
-// ещё 4 вопроса о статьях расходов
+// ещё 4 вопроса о статьях расходов за месяц
 let firstMustExpenses = prompt('Какие обязательные ежемесячные расходы у вас есть?');
 console.log(firstMustExpenses);
 
@@ -53,15 +36,28 @@ console.log(secondMustExpenses);
 let secondExpensesPrice = +prompt('Во сколько это обойдется?');
 console.log(secondExpensesPrice);
 
+// сумма расходов за месяц
+let getExpensesMonth = function(first, second){
+    return first + second;
+}
+let costsPerMonth = getExpensesMonth(firstExpensesPrice,secondExpensesPrice);
+
+
 // рассчет сбережений за месяц
-let budgetMonth = money - (firstExpensesPrice + secondExpensesPrice);
-console.log(budgetMonth);
+let getAccumulatedMonth = function(salary, costs){
+    return salary - costs;
+}
+let accumulatedMonth = getAccumulatedMonth(money,costsPerMonth);
+console.log(accumulatedMonth);
 
 // вывод сколько месяцев нужно откладывать
-console.log('цель будет достигнута через ' + Math.ceil(mission / budgetMonth) + ' месяцев.');
+let getTargetMonth = function(target, save){
+    return "Цель будет достигнута через " + Math.ceil(target / save) + " месяцев.";
+}
+console.log(getTargetMonth(mission, savings))
 
 // сбережения в день
-budgetDay = budgetMonth / 30;
+budgetDay = accumulatedMonth / 30;
 console.log(Math.floor(budgetDay));
 
 if(budgetDay >= 800){
@@ -74,17 +70,44 @@ if(budgetDay >= 800){
     console.log('Что-то пошло не так')
 }
 
-let myFun = function(a, b, plus, minus){
-    let res = (a > b) ? minus(a, b) : plus(a, b);
-    console.log(res);
-}
 
-myFun(
-4,
-5,
-function(a, b){
-    return a + b;
-},
-function(a, b){
-    return a - b;
-}
+// подсказки из видоса
+
+// let myFun = function(a, b, plus, minus){
+//     let res = (a > b) ? minus(a, b) : plus(a, b);
+//     console.log(res);
+// }
+
+// myFun(
+//     5,
+//     5,
+//     function(a, b){return a + b;},
+//     function(a, b){return a - b;}
+// );
+
+
+// let hello  = function(name){
+//     return 'Hello ' + name;
+// }
+
+// console.log(hello('DOdique'));
+
+// // воспроизвести функцию с определением статуса пользователя
+
+// let userStatus = function(userData){
+//     if(userData === "admin"){
+//         return "Администратор";
+//     }else{
+//         return "Пользователь";
+//     }
+// }
+
+// let userName = function(name, callback){
+//     let status = "user";
+//     if(name === "Лёха" || name === "Юра"){
+//         status = "admin";
+//     }
+//     return callback(status);
+// }
+
+// console.log(userName("я", userStatus));

@@ -86,3 +86,18 @@ let showTypeOf = function(a, b, c){
     return arr;
 };
 console.log(showTypeOf(money,income,deposit));
+
+//вывод об уровне дохода
+let getStatusIncome = function(incomeLvl){
+    if(incomeLvl >= 800){
+        return ('Высокий уровень дохода');
+    }else if(incomeLvl >= 300){
+        return ('Средний уровень дохода');
+    }else if(incomeLvl >= 0){
+        return ('Низкий уровень дохода');
+    }else if(incomeLvl < 0){
+        return ('Что-то пошло не так');
+    }
+};
+let statusIncome = getStatusIncome(budgetDay);
+console.log(statusIncome);

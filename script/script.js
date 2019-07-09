@@ -72,9 +72,6 @@ console.log(getTargetMonth(mission, accumulatedMonth))
 // сбережения в день
 let getBudgetDay = function(save, month){
     let savePerDay = Math.floor(save / month);
-    if(savePerDay < 0){
-        return "Что-то пошло не так!";
-    }
     return savePerDay;
 }
 let budgetDay = getBudgetDay(accumulatedMonth, 30);

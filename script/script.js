@@ -3,28 +3,38 @@
 alert("Поздоровался, и шо?");
 
 let money, 
-    income = "проточка черенков для лопат",
-    addExpenses = "Корм для меня, Ипотека, Корм для Кошки", 
-    deposit = false, 
-    mission = 15000000, 
-    period = 6;
+    // вопрос о месячном доходе
+     start = function(){
+        do{
+            money = prompt("Ваш месячный доход?");
+        }
+        while(isNaN(money) || money == "" || money == null)
+        return +money;
+    };
 
-// вопрос о месячном доходе
-let start = function(){
-    do{
-        money = prompt("Ваш месячный доход?");
+    start();
+
+//объект из видео 6 урока
+let appData = {
+    income: {},
+    addIncome: [],
+    expenses: {},
+    addExpenses: [],
+    deposit: false,
+    misson: 50000,
+    period: 3,
+    asking: function(){
+        let addExpenses = "Корм для меня, Ипотека, Корм для Кошки";
+            appData.ddExpenses = addExpenses.toLowerCase().split(',');
+            appData.deposit = confirm("Есть ли у вас депозит в банке?");
     }
-    while(isNaN(money) || money == "" || money == null)
-    return +money;
 }
 
-start();
+
 
 // вопрос о статьях расходов
 addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую", "кошка, собака, интернет");
 
-// вопрос депозите
-deposit = confirm("Есть ли у вас депозит в банке?");
 
 //сумма расходов за месяц
 let firstMustExpenses,
@@ -67,7 +77,7 @@ let getTargetMonth = function(target, save){
     return "Цель будет достигнута через " + charge + " месяцев.";
     
 };
-console.log(getTargetMonth(mission, accumulatedMonth))
+console.log(getTargetMonth(appData.mission, accumulatedMonth))
 
 // сбережения в день
 let getBudgetDay = function(save, month){
@@ -76,13 +86,6 @@ let getBudgetDay = function(save, month){
 }
 let budgetDay = getBudgetDay(accumulatedMonth, 30);
 console.log(budgetDay);
-
-let showTypeOf = function(a, b, c){
-    let arr = [];
-    arr.push(typeof(a), typeof(b), typeof(c));
-    return arr;
-};
-console.log(showTypeOf(money,income,deposit));
 
 //вывод об уровне дохода
 let getStatusIncome = function(incomeLvl){
@@ -98,3 +101,7 @@ let getStatusIncome = function(incomeLvl){
 };
 let statusIncome = getStatusIncome(budgetDay);
 console.log(statusIncome);
+
+
+
+console.log(appData);

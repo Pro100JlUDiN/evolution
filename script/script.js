@@ -43,6 +43,7 @@ let appData = {
                     sum1 += +prompt("Во сколько это обойдется?");
                 }
                 appData.expenses[firstMustExpenses] = sum1;
+                
             }else if(i === 1){
                 secondMustExpenses = prompt("Какие обязательные ежемесячные расходы у вас есть?", "магазин, интернет");
 
@@ -52,9 +53,11 @@ let appData = {
                 }
                 appData.expenses[secondMustExpenses] = sum2;
             }          
+            appData.getExpensesMonth();
         }
-        return sum1 + sum2;
+        let sumAll = sum1 + sum2;
         
+        return sumAll;
         
     },
     budgetDay: 0,
@@ -66,12 +69,13 @@ let appData = {
     },
     
     //сумма расходов за месяц
-    getExpensesMonth: function(callback){
-        
+    getExpensesMonth: function(){
+        let amountOf = 0;
+        for(let key in appData.expenses){
+            amountOf += appData.expenses[key];
+        }
 
-        // for(let key in appData.expenses){
-        //     return console.log("Ключ: " + key + "значение:" + appData.expenses);
-        // }
+        return appData.expensesMonth = amountOf;
 },
     
     // вывод сколько месяцев нужно откладывать
@@ -97,7 +101,7 @@ let appData = {
 }
 
 appData.budget = money;
-
+// console.log(appData.getExpensesMonth());
 
 // вопрос о статьях расходов
 addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую", "кошка, собака, интернет");
@@ -128,22 +132,13 @@ let costsPerMonth = appData.asking();
 
 
 
-// // рассчет сбережений за месяц
-// let getAccumulatedMonth = function(salary, costs){
-//     return salary - costs;
-// };
+// вывод расходов за месяц
 let accumulatedMonth = appData.getAccumulatedMonth(appData.budget,costsPerMonth);
 console.log(accumulatedMonth);
 
-// // вывод сколько месяцев нужно откладывать
-// let getTargetMonth = function(target, save){
-//     let charge = Math.ceil(target / save);
-//     if(charge < 0){
-//         return "Цель не будет достигнута.";
-//     }
-//     return "Цель будет достигнута через " + charge + " месяцев.";
-    
-// };
+
+
+// вывод через сколько будет достигнута цель
 console.log(appData.getTargetMonth(appData.mission, accumulatedMonth));
 
 // сбережения в день
@@ -154,18 +149,8 @@ let getBudgetDay = function(save, month){
 let budgetDay = getBudgetDay(accumulatedMonth, 30);
 console.log(budgetDay);
 
-// //вывод об уровне дохода
-// let getStatusIncome = function(incomeLvl){
-//     if(incomeLvl >= 800){
-//         return ('Высокий уровень дохода');
-//     }else if(incomeLvl >= 300){
-//         return ('Средний уровень дохода');
-//     }else if(incomeLvl >= 0){
-//         return ('Низкий уровень дохода');
-//     }else if(incomeLvl < 0){
-//         return ('Что-то пошло не так');
-//     }
-// };
+
+// вывод об уровне доходов
 let statusIncome = appData.getStatusIncome(budgetDay);
 console.log(statusIncome);
 
@@ -173,4 +158,7 @@ console.log(statusIncome);
 
 console.log(appData);
 
-// 6
+for(let key in appData){
+    console.log("Наша программа включает в себя данные: " + key);
+}
+

@@ -52,10 +52,14 @@ let appData = {
                     sum2 += +prompt("Во сколько это обойдется?");
                 }
                 appData.expenses[secondMustExpenses] = sum2;
-            }          
+            } 
+            
+            // заюзал callback (но это не точно)         
             appData.getExpensesMonth();
         }
         let sumAll = sum1 + sum2;
+
+        // заюзал callback (но это не точно)
         appData.getBudget();
         
         return sumAll;

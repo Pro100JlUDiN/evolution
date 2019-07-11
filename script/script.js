@@ -66,26 +66,12 @@ let appData = {
     },
     
     //сумма расходов за месяц
-    getExpensesMonth: function(){
-    // let sum = 0;
-    // for(let i = 0; i < 2; i++){
-    //     if(i === 0){
-    //         firstMustExpenses = prompt("Какие обязательные ежемесячные расходы у вас есть?", "кошка, собака, жена");
+    getExpensesMonth: function(callback){
+        
 
-    //     }else if(i === 1){
-    //         secondMustExpenses = prompt("Какие обязательные ежемесячные расходы у вас есть?", "магазин, интернет");
-    //     }
-        
-        
-    //     sum += +prompt("Во сколько это обойдется?");
-    //     while(isNaN(sum) || sum == "" || sum == null){
-    //         sum += +prompt("Во сколько это обойдется?");
-    //     }
-    // }
-    // return sum;
-    for(let key in appData){
-        
-    }
+        // for(let key in appData.expenses){
+        //     return console.log("Ключ: " + key + "значение:" + appData.expenses);
+        // }
 },
     
     // вывод сколько месяцев нужно откладывать
@@ -111,6 +97,7 @@ let appData = {
 }
 
 appData.budget = money;
+
 
 // вопрос о статьях расходов
 addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую", "кошка, собака, интернет");

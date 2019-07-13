@@ -1,3 +1,3 @@
 'use stric';
 
-let variable;
+console.log(document);

@@ -44,8 +44,9 @@ let appData = {
         }
 
 
-        let addExpenses = "Корм для меня,Ипотека,Корм для Кошки";
-            appData.addExpenses = addExpenses.toLowerCase().split(',');
+            appData.addExpenses = prompt("Перечислите ваши обязательные расходы", "Корм для меня,Ипотека,Корм для Кошки");
+            appData.addExpenses = appData.addExpenses.toLowerCase().split(',');
+            
             if(appData.deposit = confirm("Есть ли у вас депозит в банке?")){
                 appData.getInfoDeposit();
             }

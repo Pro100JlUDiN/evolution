@@ -1,0 +1,3 @@
+'use stric';
+
+let variable;

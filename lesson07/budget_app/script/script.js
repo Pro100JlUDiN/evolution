@@ -7,8 +7,7 @@ let btnExpensesAdd = document.getElementsByTagName("button")[1];
 // чекбокс о наличии депозита
 let checkBox = document.querySelector("#deposit-check");
 // поля возможных доходов
-let addIncomeFieldFirst = document.querySelectorAll(".additional_income-item")[0];
-let addIncomeFieldSecond = document.querySelectorAll(".additional_income-item")[1];
+let addIncomeField = document.querySelectorAll(".additional_income-item");
 // поля ввода в правой части
 let budgetDayField = document.getElementsByClassName("budget_day-value");
 let expensesMonthField = document.getElementsByClassName("expenses_month-value");

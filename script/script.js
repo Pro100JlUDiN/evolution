@@ -1,23 +1,41 @@
 "use stric";
-// приветствие
-alert("Поздоровался, и шо?");
+// кнопка "Рассчитать"
+let btnTake = document.getElementById("start");
+//Месячный доход
+let monthSalaryField = document.querySelector(".salary-amount");
+// плюсы к доходам
+let btnIncomeAdd = document.getElementsByTagName("button")[0];
+let btnExpensesAdd = document.getElementsByTagName("button")[1];
+// чекбокс о наличии депозита
+let checkBox = document.querySelector("#deposit-check");
+// поля возможных доходов
+let addIncomeField = document.querySelectorAll(".additional_income-item");
+// поля ввода в правой части
+let budgetDayField = document.getElementsByClassName("budget_day-value");
+let expensesMonthField = document.getElementsByClassName("expenses_month-value");
+let addIncomeFieldLeft = document.getElementsByClassName("additional_income-value");
+let addExpensesField = document.getElementsByClassName("additional_expenses-value");
+let incomePeriodField = document.getElementsByClassName("income_period-value");
+let targetField = document.getElementsByClassName("target_month-value");
 
-let money; 
-// вопрос о месячном доходе
-let start = function(){
-        do{
-            money = prompt("Ваш месячный доход?");
-        }
-        while(isNaN(money) || money == "" || money == null)
-        return +money;
-    };
+let budgetMonthField = document.querySelector(".budget_month-value");
+// Обязательные расходы
+let mustExpensesName = document.querySelector(".expenses-title");
+let mustExpensesAmount = document.querySelector(".expenses-amount");
+// Возможные расходы
+let addExpensesLeftField = document.querySelector(".additional_expenses-item");
+// Цель
+let targetLeftField = document.querySelector(".target-amount");
+// Период расчета (ползунок)
+let period = document.querySelector('[type="range"]');
 
-start();
+
 
 
 //объект из видео 6 урока
 let appData = {
     income: {},
+    budget: 0,
     addIncome: [],
     expenses: {},
     addExpenses: [],
@@ -26,6 +44,26 @@ let appData = {
     moneyDeposit: 0,
     mission: 5000000,
     period: 3,
+    // вопрос о месячном доходе
+    start: function(){
+
+        if(monthSalaryField.value === ''){
+            alaert('Ошибка поля "Месячный доход" должно быть заполнено!');
+            return;
+        }
+        appData.budget = monthSalaryField.value;
+        console.log("salaryAmount.value: ", monthSalaryField.value)
+        // appData.asking();
+        // appData.getExpensesMonth();
+        // appData.getBudget();
+        
+    },
+    addExpensesBlock: function(){
+        let expensesItem = document.querySelector(".expenses-items");
+        console.log(expensesItem.parentNode);
+        let cloneExpensesItem = expensesItem.cloneNode(true);
+        expensesItem.parentNode.insertbefore(cloneExpensesItem , btnExpensesAdd);
+    },
     asking: function(){
 
         if(confirm("Есть ли у вас дополнительный заработок?")){
@@ -148,8 +186,9 @@ let appData = {
     }
 }
 
-appData.budget = money;
+btnTake.addEventListener("click", appData.start);
 
+btnExpensesAdd.addEventListener("click", appData.addExpensesBlock);
 
 
 let costsPerMonth = appData.asking();

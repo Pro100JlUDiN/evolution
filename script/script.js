@@ -38,9 +38,6 @@ let periodAmount = document.querySelector(".period-amount");
 let inputText = document.querySelectorAll(`[type="text"]`);
 
 
-
-
-
 //объект из видео 6 урока
 let appData = {
     income: {},
@@ -63,7 +60,6 @@ let appData = {
         
 
         appData.getExpenses();
-        
         
         appData.getIncome();
         appData.getExpensesMonth();
@@ -129,10 +125,6 @@ let appData = {
             
         });
 
-
-        // for(let key in appData.income){
-        //     appData.incomeMonth += +appData.income[key];
-        // }
     },
     // возможные расходы (большое поле внизу)
     getAddExpenses: function(){

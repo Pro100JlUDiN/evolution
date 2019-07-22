@@ -51,10 +51,10 @@ let appData = {
     moneyDeposit: 0,
     start: function(){
 
-        // if(monthSalaryField.value === ''){
-        //     btnTake.disabled = "disabled";
-        //     return;
-        // }
+        if(monthSalaryField.value === ''){
+            btnTake.disabled = "disabled";
+            return;
+        }
         this.budget = +monthSalaryField.value;
         
 
@@ -83,10 +83,18 @@ let appData = {
         incomePeriodField.value = this.calcSavedMoney();
         rangeValue;
     },
-    // // кнопка сброса
-    // clear: function(){
-    //     document.querySelectorAll(`[type="text"]`).reset();
-    // },
+    // кнопка сброса
+    clear: function(){
+        inputText.forEach(function(elem){
+            elem.disabled = false;
+            elem.value = "";
+        });
+        btnReset.style.display = "none";
+        
+        btnTake.style.display = "block";
+        btnTake.disbled = false;
+        
+    },
     // плюс пополнительных доходов
     addExpensesBlock: function(){
         
@@ -225,10 +233,7 @@ let appData = {
 
 btnTake.addEventListener("click", appData.start.bind(appData));
 
-btnReset.addEventListener("click", function(){
-    console.log("123");
-    
-});
+btnReset.addEventListener("click", appData.clear.bind(appData));
 
 btnExpensesAdd.addEventListener("click", appData.addExpensesBlock.bind(appData));
 btnIncomeAdd.addEventListener("click", appData.addIncomeBlock.bind(appData));

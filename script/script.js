@@ -53,6 +53,8 @@ let appData = {
 
         if(monthSalaryField.value === ''){
             btnTake.disabled = "disabled";
+            btnExpensesAdd.disabled = "disabled";
+            btnIncomeAdd.disabled = "disabled";
             return;
         }
         this.budget = +monthSalaryField.value;

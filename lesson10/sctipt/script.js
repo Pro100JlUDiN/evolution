@@ -1,44 +1,36 @@
 'use-stric';
 
-
-let blockDiv = document.createElement("div");
-let ourScript = document.querySelector("script");
-
-
-let blockParagrapg = document.createElement("p");
-
-
-function DomElement(selector, heigth, width, bg, fontSize){
-
-    // this.selector = selector;
-    if(selector[0] === "."){
-        blockDiv.className = selector.substring(1); 
-        document.body.insertBefore(blockDiv, ourScript);
-
-        blockDiv.style.cssText = 
-        "height:" + heigth + "px;" +
-        "width:" + width + "px;" +
-        "background-color: "+ bg+";" +
-        "font-size:" + fontSize + "px;"
-
-        blockDiv.textContent = "Йоу КУ!";
-    }else if(selector[0] === "#"){
-        blockParagrapg.id = selector.substring(1);
-        document.body.insertBefore(blockParagrapg, ourScript);
-
-        blockParagrapg.style.cssText = 
-        "height:" + heigth + "px;" +
-        "width:" + width + "px;" +
-        "background-color: "+ bg+";" +
-        "font-size:" + fontSize + "px;"
-        blockParagrapg.textContent = "Да Нет";
-    }
+function DomElement(selector, height, width, bg, fontSize, text){
+    this.selector = selector;
+    this.height = height;
+    this.width = width;
+    this.bg = bg;
+    this.fontSize = fontSize;
+    this.text = text;
     
- 
+    let needBlock;
+    let ourScript = document.querySelector("script");
+
+    if(this.selector[0] === "."){
+        needBlock = document.createElement("div");
+        needBlock.className = selector.substring(1);
+    }else if(this.selector[0] === "#"){
+        needBlock = document.createElement("p");
+    }
+    document.body.insertBefore(needBlock, ourScript);
+    needBlock.innerHTML = text;
+    needBlock.style.cssText = `
+        height: ${this.height}px;
+        width: ${this.width}px;
+        background-color: ${this.bg};
+        font-size: ${this.fontSize}px;
+    `;
+
 }
+DomElement(".Cot", 100, 100, "yellow", 15, "Jeep")
+// console.log(DomElement());
 
+let wood = new DomElement("#Cot", 150, 150, "purple", 15, "Mercedes");
+console.log(wood);
 
-
-let house = new DomElement("#NoDa", 100, 100, "green", 32);
-
-
+let woody = new DomElement("#Cot", 150, 250, "green", 15, "BUICK");

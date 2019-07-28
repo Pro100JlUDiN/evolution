@@ -1,39 +1,34 @@
-'use-stric';
+'use strict';
 
-function DomElement(selector, height, width, bg, fontSize, text){
-    this.selector = selector;
-    this.height = height;
-    this.width = width;
-    this.bg = bg;
-    this.fontSize = fontSize;
-    this.text = text;
-    
-    let needBlock;
-    let ourScript = document.querySelector("script");
+const btns = document.querySelectorAll("button");
+const message = document.querySelector(".message");
 
-    this.addBlock = function(){
-        if(this.selector[0] === "."){
-        needBlock = document.createElement("div");
-        needBlock.className = selector.substring(1);
-        }else if(this.selector[0] === "#"){
-            needBlock = document.createElement("p");
-        }
-        document.body.insertBefore(needBlock, ourScript);
-        needBlock.innerHTML = text;
-        needBlock.style.cssText = `
-            height: ${this.height}px;
-            width: ${this.width}px;
-            background-color: ${this.bg};
-            font-size: ${this.fontSize}px;
-            `;
+const coin = ["Орел","Решка"];
+
+const score = [0, 0];
+
+const dropCoin = function(event){
+    const playerChoise = event.target.textContent;
+    const random = Math.floor(Math.random() * coin.length);
+    const lot = coin[random];
+
+    let output = '';
+    if(playerChoise === lot){
+        output = "Выиграл!"
+        score[0] ++;
+    }else{
+        output = "Проиграл!"
+        score[1] ++;
     }
 
-}
-DomElement(".Cot", 100, 100, "yellow", 15, "Jeep")
-// console.log(DomElement());
+    message.innerHTML = `
+    <div>Результат: ${lot}</div>
+    <div>${output}</div>
+    <div>Выиграл ${score[0]} раз</div>
+    <div>Проиграл ${score[1]} раз</div>
+    `;
+};
 
-let wood = new DomElement("#Cot", 150, 150, "purple", 15, "Mercedes");
-console.log(wood);
-
-let woody = new DomElement("#Cot", 150, 250, "green", 15, "BUICK");
-wood.addBlock();
+btns.forEach(function(button){
+    button.addEventListener("click", dropCoin);
+});

@@ -77,10 +77,8 @@ AppData.prototype.start = function(){
     
     this.getIncome();
     this.getExpensesMonth();
-    // this.getAddIncome();
-    // this.getAddExpenses();
-    this.getAdd(true,this.addExpenses,addExpensesLeftField);
-    this.getAdd(false,this.addIncome,addIncomeField);
+    this.getAdd(true, this.addExpenses, addExpensesLeftField);
+    this.getAdd(false, this.addIncome, addIncomeField);
     this.getTargetMonth();
     this.calcSavedMoney();
     this.getInfoDeposit();

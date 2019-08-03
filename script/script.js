@@ -124,28 +124,7 @@ AppData.prototype.addBlock = function(item, press, fieldsName){
         press.style.display = "none";
     }
 };
-// // плюс пополнительных доходов
-// AppData.prototype.addExpensesBlock = function () {
 
-//     let cloneExpensesItem = expensesItems[0].cloneNode(true);
-//     expensesItems[0].parentNode.insertBefore(cloneExpensesItem, btnExpensesAdd);
-
-//     expensesItems = document.querySelectorAll(".expenses-items");
-//     if (expensesItems.length === 3) {
-//         btnExpensesAdd.style.display = "none";
-//     }
-// };
-// // плюс подолнительных доходов
-// AppData.prototype.addIncomeBlock = function () {
-
-//     let cloneIncomeItem = incomeItems[0].cloneNode(true);
-//     incomeItems[0].parentNode.insertBefore(cloneIncomeItem, btnIncomeAdd);
-
-//     incomeItems = document.querySelectorAll(".income-items");
-//     if (incomeItems.length === 3) {
-//         btnIncomeAdd.style.display = "none";
-//     }
-// };
 // обязательные расходы
 AppData.prototype.getExpenses = function () {
     expensesItems.forEach((item) => {
@@ -167,46 +146,28 @@ AppData.prototype.getIncome = function () {
     });
 
 };
-// (1, addExpensesLeftField, this.addExpenses);
-// (0, addIncomeField, this.addIncome);
-AppData.prototype.getAdd = function(bools/*,fieldsName, where*/){
+
+// для возможных доходов и расходов
+AppData.prototype.getAdd = function(bools){
     
     if(bools === true){
         let addExpenses = addExpensesLeftField.value.split(",");
         addExpenses.forEach((item)=>{
             item = item.trim();
             if(item !== ""){
-                this.addExpenses.push(item);     // заменил this na appData
+                this.addExpenses.push(item);     
             }
         });
     }else{
         addIncomeField.forEach((item)=>{
             let itemValue = item.value.trim();
             if(itemValue !== ""){
-                appData.addIncome.push(itemValue);  // заменил this na appData
+                this.addIncome.push(itemValue);  
             }
         });
     }
 };
-// // возможные расходы (большое поле внизу)
-// AppData.prototype.getAddExpenses = function () {
-//     let addExpenses = addExpensesLeftField.value.split(",");
-//     addExpenses.forEach((item) => {
-//         item = item.trim();
-//         if (item !== "") {
-//             this.addExpenses.push(item);
-//         }
-//     });
-// };
-// // поля возможных доходов
-// AppData.prototype.getAddIncome = function () {
-//     addIncomeField.forEach((item) => {
-//         let itemValue = item.value.trim();
-//         if (itemValue !== "") {
-//             this.addIncome.push(itemValue);
-//         }
-//     });
-// };
+
 
 // рассчет сбережений за месяц
 AppData.prototype.getBudget = function () {
@@ -227,7 +188,7 @@ AppData.prototype.getExpensesMonth = function () {
 AppData.prototype.getTargetMonth = function () {
     let charge = Math.ceil(targetLeftField.value / this.budgetMonth);
     if (charge < 0) {
-        return "Цель не будет достигнута.";
+        return `Цель не будет достигнута.`;
     };
 
     return `Цель будет достигнута через ${charge} месяцев.`;
@@ -263,8 +224,6 @@ AppData.prototype.getListeningForEvent = function () {
 
     btnReset.addEventListener("click", this.clear.bind(appData));
 
-    // btnExpensesAdd.addEventListener("click", appData.addExpensesBlock.bind(appData));
-    // btnIncomeAdd.addEventListener("click", appData.addIncomeBlock.bind(appData));
     btnExpensesAdd.addEventListener("click", () =>{
         this.addBlock(expensesItems, btnExpensesAdd, ".expenses-items");
     });
@@ -275,6 +234,7 @@ AppData.prototype.getListeningForEvent = function () {
     });
 
     period.addEventListener("change", this.getValueRange.bind(appData));
+
     // галочка депозита, появление 2х полей ввода
     checkBox.addEventListener("change", function () {
         if (checkBox.checked === true) {

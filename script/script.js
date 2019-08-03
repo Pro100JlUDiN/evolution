@@ -20,12 +20,12 @@ let btnTake = document.getElementById("start"),
 // поля возможных доходов
  addIncomeField = document.querySelectorAll(".additional_income-item"),
 // поля ввода в правой части
- budgetDayField = document.getElementsByClassName("budget_day-value")[0],
- expensesMonthField = document.getElementsByClassName("expenses_month-value")[0],
- addIncomeFieldLeft = document.getElementsByClassName("additional_income-value")[0],
- addExpensesField = document.getElementsByClassName("additional_expenses-value")[0],
- incomePeriodField = document.getElementsByClassName("income_period-value")[0],
- targetField = document.getElementsByClassName("target_month-value")[0],
+ budgetDayField = document.querySelector(".budget_day-value"),
+ expensesMonthField = document.querySelector(".expenses_month-value"),
+ addIncomeFieldLeft = document.querySelector(".additional_income-value"),
+ addExpensesField = document.querySelector(".additional_expenses-value"),
+ incomePeriodField = document.querySelector(".income_period-value"),
+ targetField = document.querySelector(".target_month-value"),
 
  budgetMonthField = document.querySelector(".budget_month-value"),
 // дополнительный доход
@@ -61,6 +61,7 @@ let AppData = function(){
 };
 let appData = new AppData();
 
+
 AppData.prototype.start = function(){
 
     if(monthSalaryField.value === ''){
@@ -76,8 +77,8 @@ AppData.prototype.start = function(){
     
     this.getIncome();
     this.getExpensesMonth();
-    this.getAddIncome();
-    this.getAddExpenses();
+    this.getAdd(true/*, addExpensesLeftField, this.addExpenses*/);
+    this.getAdd(false/*, addIncomeField, this.addIncome*/);
     this.getTargetMonth();
     this.calcSavedMoney();
     this.getInfoDeposit();
@@ -96,8 +97,8 @@ AppData.prototype.showResult = function(){
     addExpensesField.value = this.addExpenses.join(", ");
     addIncomeFieldLeft.value = this.addIncome.join(", ");
     targetField.value = this.getTargetMonth();
-    incomePeriodField.value = this.calcSavedMoney();
-    // periodAmount.value = ;
+    incomePeriodField.value = this.calcSavedMoney(); //интересущее поле
+    
 };
 // кнопка сброса
 AppData.prototype.clear = function(){
@@ -111,37 +112,28 @@ AppData.prototype.clear = function(){
     btnTake.disbled = false;
     
 };
-// плюс пополнительных доходов
-AppData.prototype.addExpensesBlock = function(){
+// метод для плюсов
+AppData.prototype.addBlock = function(item, press, fieldsName){
     
-    let cloneExpensesItem = expensesItems[0].cloneNode(true);
-    expensesItems[0].parentNode.insertBefore(cloneExpensesItem , btnExpensesAdd);
+    let cloneField = item[0].cloneNode(true);
+    item[0].parentNode.insertBefore(cloneField , press);
     
-    expensesItems = document.querySelectorAll(".expenses-items");
-    if(expensesItems.length === 3){
-        btnExpensesAdd.style.display = "none";
+    item = document.querySelectorAll(fieldsName);
+    if(item.length === 3){
+        press.style.display = "none";
     }
 };
-// обязательные расходы
+
+
+// поля обязательныех расходов
 AppData.prototype.getExpenses = function(){
     expensesItems.forEach((item)=>{
         let itemExpenses = item.querySelector(".expenses-title").value;
         let cashExpenses = +item.querySelector(".expenses-amount").value;
         if(itemExpenses !== "" && cashExpenses !== ""){
-            this.expenses[itemExpenses] = cashExpenses;
+            appData.expenses[itemExpenses] = cashExpenses; //заменил this na appData
         }
     });
-};
-// плюс подолнительных доходов
-AppData.prototype.addIncomeBlock = function(){
-
-    let cloneIncomeItem = incomeItems[0].cloneNode(true);
-    incomeItems[0].parentNode.insertBefore(cloneIncomeItem, btnIncomeAdd);
-
-    incomeItems = document.querySelectorAll(".income-items");
-    if(incomeItems.length === 3){
-        btnIncomeAdd.style.display = "none";
-    }
 };
 // поля дополнительных доходов
 AppData.prototype.getIncome = function(){
@@ -149,34 +141,41 @@ AppData.prototype.getIncome = function(){
         let incomeFieldName = item.querySelector(".income-title").value;
         let incomeFieldSum = +item.querySelector(".income-amount").value;
         if(incomeFieldName !== "" && incomeFieldSum !== ""){
-                this.budget += incomeFieldSum;
-        }        
+            appData.budget += incomeFieldSum; // заменил this na appData
+        }
     });       
 
 };
-// возможные расходы (большое поле внизу)
-AppData.prototype.getAddExpenses = function(){
-    let addExpenses = addExpensesLeftField.value.split(",");
-    addExpenses.forEach((item)=>{
-        item = item.trim();
-        if(item !== ""){
-            this.addExpenses.push(item);
-        }
-    });
-};
-// поля возможных доходов
-AppData.prototype.getAddIncome = function(){
-    addIncomeField.forEach((item)=>{
-        let itemValue = item.value.trim();
-        if(itemValue !== ""){
-            this.addIncome.push(itemValue);
-        }
-    });
+
+// (1, addExpensesLeftField, this.addExpenses);
+// (0, addIncomeField, this.addIncome);
+AppData.prototype.getAdd = function(bools/*,fieldsName, where*/){
+    
+    if(bools === true){
+        let addExpenses = addExpensesLeftField.value.split(",");
+        addExpenses.forEach((item)=>{
+            item = item.trim();
+            if(item !== ""){
+                appData.addExpenses.push(item);     // заменил this na appData
+            }
+        });
+    }else{
+        addIncomeField.forEach((item)=>{
+            let itemValue = item.value.trim();
+            if(itemValue !== ""){
+                appData.addIncome.push(itemValue);  // заменил this na appData
+            }
+        });
+    }
 };
 
 // рассчет сбережений за месяц
 AppData.prototype.getBudget = function(){
-    this.budgetMonth =  this.budget + this.incomeMonth - this.expensesMonth + (this.moneyDeposit * this.percentDeposit) / 12;
+    if(this.deposit === true){
+        this.budgetMonth =  this.budget + this.incomeMonth - this.expensesMonth + (this.moneyDeposit * this.percentDeposit) / 12;
+    }else{
+        this.budgetMonth =  this.budget + this.incomeMonth - this.expensesMonth;
+    }
 
     this.budgetDay = Math.floor(this.budgetMonth / 30);
 };
@@ -196,68 +195,73 @@ let charge = Math.ceil(targetLeftField.value / this.budgetMonth);
         return "Цель не будет достигнута.";
     };
 
-    return "Цель будет достигнута через " + charge + " месяцев.";
+    return `Цель будет достигнута через ${charge}  месяцев.`;
 };
 
 AppData.prototype.getInfoDeposit = function(){
-    if(this.deposit){
         this.percentDeposit = depositPercent.value;
         this.moneyDeposit = depositAmount.value;						
-    }
 };
+
 // ползунок
 AppData.prototype.getValueRange = function(){
-    periodAmount.innerHTML = period.value;
+    periodAmount.textContent = period.value;
     this.showResult();
 };
+// умножение поля доходов за месяц на значение под ползунком
 AppData.prototype.calcSavedMoney = function(){
-    this.budgetMonth * periodAmount.value;
+    return this.budgetMonth * +periodAmount.innerHTML;
 };
 // блокировка полей ввода и скрытие кнопки "Рассчитать"
 AppData.prototype.getBlocking = function(){
     inputText.forEach((item)=>{
         item.setAttribute("disabled","");
     });
-        btnTake.style.display = "none";
-        btnReset.style.display = "block";
+    btnTake.style.display = "none";
+    btnReset.style.display = "block";
 };    
-
+// обработчики событий
 AppData.prototype.getListeningForEvent = function(){
+    btnTake.addEventListener("click", this.start.bind(this));
+    btnReset.addEventListener("click", this.clear.bind(this));
+    
+    btnExpensesAdd.addEventListener("click", () =>{
+        this.addBlock(expensesItems, btnExpensesAdd, ".expenses-items");
+    });
+    
+    btnIncomeAdd.addEventListener("click", ()=>{
 
-    btnTake.addEventListener("click", appData.start.bind(appData));
+        this.addBlock(incomeItems, btnIncomeAdd, ".income-items");
+    });
     
-    btnReset.addEventListener("click", appData.clear.bind(appData));
-    
-    btnExpensesAdd.addEventListener("click", appData.addExpensesBlock.bind(appData));
-    btnIncomeAdd.addEventListener("click", appData.addIncomeBlock.bind(appData));
-    /*// let rangeValue = */period.addEventListener("change", appData.getValueRange.bind(appData));
+    period.addEventListener("change", this.getValueRange.bind(this));
+    // галочка депозита, появление 2х полей ввода
+    checkBox.addEventListener("change",function(){
+        if(checkBox.checked === true){
+            depositBank.style.display = "inline-block";
+            depositAmount.style.display = "inline-block";
+            this.deposit = true;
+            depositBank.addEventListener("change", function(){
+                let selectIndex = this.options[this.selectedIndex].value;
+                if(selectIndex === "other"){
+                    depositPercent.disabled = false;
+                    depositPercent.value = "";
+                    depositPercent.style.display = "inline-block";
+                }else{
+                    depositPercent.value = selectIndex;
+                    depositPercent.style.display = "none";
+                }
+            });
+        }else{
+            depositBank.style.display = "none";
+            depositAmount.style.display = "none";
+            depositAmount.value = "";
+            depositPercent.value = "";
+            this.deposit = false;
+        }
+    });
 };
-
 AppData.prototype.getListeningForEvent();
 
-// галочка депозита, появление 2х полей ввода
-checkBox.addEventListener("change",function(){
-    if(checkBox.checked === true){
-        depositBank.style.display = "inline-block";
-        depositAmount.style.display = "inline-block";
-        appData.deposit = true;
-        depositBank.addEventListener("change", function(){
-            let selectIndex = this.options[this.selectedIndex].value;
-            if(selectIndex === "other"){
-                depositPercent.disabled = false;
-                depositPercent.value = "";
-                depositPercent.style.display = "inline-block";
-            }else{
-                depositPercent.value = selectIndex;
-                depositPercent.style.display = "none";
-            }
-        });
-    }else{
-        depositBank.style.display = "none";
-        depositAmount.style.display = "none";
-        depositAmount.value = "";
-        depositPercent.value = "";
-        appData.deposit = false;
-    }
-});
+
 

@@ -72,8 +72,8 @@ AppData.prototype.start = function () {
     this.budget = +monthSalaryField.value;
 
 
-    this.getExpenses();
     this.getIncome();
+    this.getExpenses();
     this.getExpensesMonth();
     
     // this.getAddIncome();
@@ -81,10 +81,10 @@ AppData.prototype.start = function () {
     this.getAdd(1);
     this.getAdd(0);
 
+    this.getInfoDeposit();
     this.getBudget();
     this.getTargetMonth();
     this.calcSavedMoney();
-    this.getInfoDeposit();
     this.getBlocking();
 
 
@@ -171,9 +171,16 @@ AppData.prototype.getAdd = function(bools){
 
 // рассчет сбережений за месяц
 AppData.prototype.getBudget = function () {
-    this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth + (this.moneyDeposit * this.percentDeposit) / 12;
+    if(this.deposit === true){
+        this.budgetMonth =  this.budget + this.incomeMonth - this.expensesMonth + (this.moneyDeposit * this.percentDeposit) / 12;
+    }else{
+        this.budgetMonth =  this.budget + this.incomeMonth - this.expensesMonth;
+    }
 
     this.budgetDay = Math.floor(this.budgetMonth / 30);
+    // this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth + (this.moneyDeposit * this.percentDeposit) / 12;
+
+    // this.budgetDay = Math.floor(this.budgetMonth / 30);
 };
 //сумма расходов за месяц
 AppData.prototype.getExpensesMonth = function () {
@@ -187,7 +194,7 @@ AppData.prototype.getExpensesMonth = function () {
 // вывод сколько месяцев нужно откладывать
 AppData.prototype.getTargetMonth = function () {
     let charge = Math.ceil(targetLeftField.value / this.budgetMonth);
-    if (charge < 0) {
+    if (charge <= 0) {
         return `Цель не будет достигнута.`;
     };
 
@@ -195,10 +202,8 @@ AppData.prototype.getTargetMonth = function () {
 };
 
 AppData.prototype.getInfoDeposit = function () {
-    if (this.deposit) {
-        this.percentDeposit = depositPercent.value;
-        this.moneyDeposit = depositAmount.value;
-    }
+    this.percentDeposit = +depositPercent.value;
+    this.moneyDeposit = +depositAmount.value;
 };
 // ползунок
 AppData.prototype.getValueRange = function () {
@@ -236,11 +241,11 @@ AppData.prototype.getListeningForEvent = function () {
     period.addEventListener("change", this.getValueRange.bind(appData));
 
     // галочка депозита, появление 2х полей ввода
-    checkBox.addEventListener("change", function () {
-        if (checkBox.checked === true) {
+    checkBox.addEventListener("change", function(){
+        if (checkBox.checked) {
             depositBank.style.display = "inline-block";
             depositAmount.style.display = "inline-block";
-            appData.deposit = true;
+            this.deposit = true;
             depositBank.addEventListener("change", function () {
                 let selectIndex = this.options[this.selectedIndex].value;
                 if (selectIndex === "other") {

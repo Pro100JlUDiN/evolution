@@ -50,7 +50,7 @@ window.addEventListener("DOMContentLoaded", function(){
             
         updateClock();
     };
-    countTimer("8 august 2019 ");
+    countTimer("1 september 2019");
 
     // меню
     const tuggleMenu = ()=>{

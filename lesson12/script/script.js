@@ -1,4 +1,4 @@
-window.addEventListener("DOMContentLoaded", function(){
+window.addEventListener("DOMContentLoaded", (()=>{
     "use strict";
     
     // таймер
@@ -56,8 +56,7 @@ window.addEventListener("DOMContentLoaded", function(){
     const tuggleMenu = ()=>{
         const btnMenu = document.querySelector(".menu"),
               menu = document.querySelector("menu"),
-              btnClose = document.querySelector(".close-btn"),
-              menuItems = document.querySelectorAll("ul > li"),
+              body = document.querySelector("body"),
               screenHeight = screen.height,  //812
               screenWidth = screen.width;    //375
 
@@ -74,36 +73,127 @@ window.addEventListener("DOMContentLoaded", function(){
                 menu.classList.toggle("active-menu");
             }
         };
+        // невнятная хуйня (делегирование)
+        body.addEventListener("click", ()=>{
+            let target = event.target;
+            
+            if(target.closest(".menu")){
+                handlerMenu();
+            }
+            if(target.closest(".active-menu a")){
+                handlerMenu();
+            }
+            
+            // if(target === menu){
+            //     if(target.classList.contains("close-btn")){
+            //         // handlerMenu();
+            //         console.log("крестик")
+            //     }
+            // }
 
-        btnMenu.addEventListener("click", ()=>{
-            handlerMenu();
-        });
-
-        btnClose.addEventListener("click",()=>{
-            handlerMenu();
         });
         
-        menuItems.forEach((elem)=>{
-            elem.addEventListener("click",()=>handlerMenu());
-        });
-
+        // btnMenu.addEventListener("click", ()=>{
+        //     handlerMenu();
+        // });
+        
     };
     tuggleMenu();
 
     // блок с полями реквизитов
     const tugglePopUp = ()=>{
-        const popup = document.querySelector(".popup"),
+        const popUp = document.querySelector(".popup"),
               popUpBtn = document.querySelectorAll(".popup-btn"),
-              popUpClose = document.querySelector(".popup-close");
+              popUpContent = document.querySelector(".popup-content"),
+              count = 0,
+              screenHeight = screen.height,  //812
+              screenWidth = screen.width;    //375
 
         popUpBtn.forEach((elem)=>{
             elem.addEventListener("click", ()=>{
-                popup.style.display = "block";
+                if(screenWidth < 376 && screenHeight < 813){
+                    popUp.style.display = "block";                    
+                }else{
+                    popUp.style.display = "block";
+                    // popUpContent.style.left = `0`;
+                    popUpContent.style.transition = `1s`;
+                    popUpContent.style.transform = `translateX(128%)`;
+                    // popUpContent.style = `
+                    //     transition: 1s;
+                    //     transform: translateX(10%);
+
+                    // `;
+
+
+                    // popUp.style.display = "block";                    
+                    // if(!popUpContent.style.translateX || popUpContent.style.translateX === `38`){
+                    //     popUpContent.style.left = `0%`;
+                    // }else{
+                    //     popUpContent.style.left = `38%`;
+                    // }
+                }
+
+
+
+                // if(screenWidth < 376 && screenHeight < 813){
+                //     popUp.style.display = "block";                    
+                // }else{
+                //     popUp.style.display = "block";                    
+                //     if(!popUpContent.style.transform || popUpContent.style.transform === `translateX(-50%)`){
+                //         popUpContent.style.transform = `translateX(0%)`;
+                //     }else{
+                //         popUpContent.style.transform = `translateX(-50%)`;
+                //     }
+                // }
             });
         });
-        popUpClose.addEventListener("click",()=>{
-            popup.style.display = "none";
+    
+        popUp.addEventListener("click",()=>{
+            let target = event.target;
+            
+            if(target.classList.contains("popup-close")){
+                popUp.style.display = "none";
+            }else{
+                target = target.closest(".popup-content");
+                if(!target){
+                    popUp.style.display = "none";
+                }
+            }
+
         });
     };
     tugglePopUp();
-});
+
+    //табы
+    const tabs = ()=>{
+        const tabHeader = document.querySelector(".service-header"),
+              tab = tabHeader.querySelectorAll(".service-header-tab"),
+              tabContent = document.querySelectorAll(".service-tab");
+
+        const toggleTabContent = (index)=>{
+            for(let i = 0; i < tabContent.length; i++){
+                if(index === i){
+                    tab[i].classList.add('active');
+                    tabContent[i].classList.remove("d-none");
+                }else{
+                    tab[i].classList.remove('active');
+                    tabContent[i].classList.add("d-none");               
+                }
+            }
+        };
+
+        tabHeader.addEventListener("click", (event)=>{
+            let target = event.target;
+            target = target.closest(".service-header-tab");
+
+            if(target){
+                tab.forEach((item, i)=>{
+                    if(item === target){
+                        toggleTabContent(i);
+                    }
+                });
+            }
+        });
+    };
+    tabs();
+}));

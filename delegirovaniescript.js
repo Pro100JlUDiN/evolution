@@ -21,7 +21,7 @@ const getButton = ()=>{
     btn = document.querySelectorAll(".button");
 };
 
-addBtn.addEventListener("click",getButton);
+addBtn.addEventListener("click", getButton);
 
 btnBlock.addEventListener("click", ()=>{
     if(!event.target.matches(".button")) return;

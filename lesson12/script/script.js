@@ -116,8 +116,10 @@ window.addEventListener("DOMContentLoaded", (()=>{
                 }else{
                     popUp.style.display = "block";
                     // popUpContent.style.left = `0`;
-                    popUpContent.style.transition = `1s`;
-                    popUpContent.style.transform = `translateX(128%)`;
+                    popUpContent.style = `left: 0`;
+
+                    popUpContent.setAttribute("style", "transition: 1s ease 2s");
+                    popUpContent.style.transform = `opacity: 1`;
 
                 
                 }

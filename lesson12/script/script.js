@@ -105,28 +105,35 @@ window.addEventListener("DOMContentLoaded", (()=>{
         const popUp = document.querySelector(".popup"),
               popUpBtn = document.querySelectorAll(".popup-btn"),
               popUpContent = document.querySelector(".popup-content"),
-              count = 0,
               screenHeight = screen.height,  //812
               screenWidth = screen.width;    //375
+        let count = -20,
+            idInterval,
+            moveInterval;
 
         popUpBtn.forEach((elem)=>{
             elem.addEventListener("click", ()=>{
                 if(screenWidth < 376 && screenHeight < 813){
-                    popUp.style.display = "block";                    
+                    popUp.style.display = "block";                   
                 }else{
+                    popUpContent.style.left = `${count}%`;
                     popUp.style.display = "block";
-                    // popUpContent.style.left = `0`;
-                    popUpContent.style = `left: 0`;
-
-                    popUpContent.setAttribute("style", "transition: 1s ease 2s");
-                    popUpContent.style.transform = `opacity: 1`;
-
-                
+                    moveInterval = requestAnimationFrame(animate);
                 }
-                
             });
         });
-    
+
+        let animate = ()=>{
+            moveInterval = requestAnimationFrame(animate);
+            if(count !== 38){
+                count ++;
+                popUpContent.style.left = `${count}%`;
+            }else{
+                count = -20;
+                cancelAnimationFrame(moveInterval);
+            }
+        };
+
         popUp.addEventListener("click",()=>{
             let target = event.target;
             

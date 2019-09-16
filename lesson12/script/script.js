@@ -118,33 +118,10 @@ window.addEventListener("DOMContentLoaded", (()=>{
                     // popUpContent.style.left = `0`;
                     popUpContent.style.transition = `1s`;
                     popUpContent.style.transform = `translateX(128%)`;
-                    // popUpContent.style = `
-                    //     transition: 1s;
-                    //     transform: translateX(10%);
 
-                    // `;
-
-
-                    // popUp.style.display = "block";                    
-                    // if(!popUpContent.style.translateX || popUpContent.style.translateX === `38`){
-                    //     popUpContent.style.left = `0%`;
-                    // }else{
-                    //     popUpContent.style.left = `38%`;
-                    // }
+                
                 }
-
-
-
-                // if(screenWidth < 376 && screenHeight < 813){
-                //     popUp.style.display = "block";                    
-                // }else{
-                //     popUp.style.display = "block";                    
-                //     if(!popUpContent.style.transform || popUpContent.style.transform === `translateX(-50%)`){
-                //         popUpContent.style.transform = `translateX(0%)`;
-                //     }else{
-                //         popUpContent.style.transform = `translateX(-50%)`;
-                //     }
-                // }
+                
             });
         });
     

@@ -73,29 +73,23 @@ window.addEventListener("DOMContentLoaded", (()=>{
                 menu.classList.toggle("active-menu");
             }
         };
-        // невнятная хуйня
+
+        // делегирование        
         body.addEventListener("click", ()=>{
             let target = event.target;
             
             if(target.closest(".menu")){
                 handlerMenu();
-            }
-            if(target.closest(".active-menu a")){
+            }else if(target.closest(".active-menu a")){
                 handlerMenu();
-            }
-            
-            // if(target === menu){
-            //     if(target.classList.contains("close-btn")){
-            //         // handlerMenu();
-            //         console.log("крестик")
-            //     }
-            // }
+            }else if(menu.classList.contains("active-menu")){
+                target = target.closest(".active-menu");
+                if(!target){
+                    handlerMenu();
+                }
 
+            }
         });
-        
-        // btnMenu.addEventListener("click", ()=>{
-        //     handlerMenu();
-        // });
         
     };
     tuggleMenu();
@@ -108,7 +102,6 @@ window.addEventListener("DOMContentLoaded", (()=>{
               screenHeight = screen.height,  //812
               screenWidth = screen.width;    //375
         let count = -20,
-            idInterval,
             moveInterval;
 
         popUpBtn.forEach((elem)=>{

@@ -188,6 +188,8 @@ window.addEventListener("DOMContentLoaded", (()=>{
             interval,
             dot = document.querySelectorAll(".dot");
 
+        
+        
         const prevSlide = (elem, index, strClass)=>{            
             elem[index].classList.remove(strClass);
         };
@@ -266,22 +268,29 @@ window.addEventListener("DOMContentLoaded", (()=>{
             }
         });
 
+        
+
         const getDots = ()=>{
             let dotBlock = document.createElement("li");
-            dotContainer.prepend(dotBlock);
-            dotBlock.className = "dot";
-            for(let i = 0; i < slide.length; i++){
-                dotContainer.prepend(dotBlock);
+                
+            dotContainer.append(dotBlock);
+            if(dot.length === 0){
+                dotBlock.className = "dot dot-active";
+            }else{
                 dotBlock.className = "dot";
-                dot = document.querySelectorAll(".dot");
             }
+            
+            dot = document.querySelectorAll(".dot");
+            
         };
 
         for(let i = 0; i < slide.length; i++){
             getDots();
         }
-
+        
+        
         startSlide();
+        
     };
     slider();
 }));

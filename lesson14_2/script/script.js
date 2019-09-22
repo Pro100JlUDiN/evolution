@@ -184,9 +184,9 @@ window.addEventListener("DOMContentLoaded", (()=>{
               dotContainer = document.querySelector(".portfolio-dots"),
               slider = document.querySelector(".portfolio-content");
 
-        let currentSlide = 0,
-            interval,
-            dot = document.querySelectorAll(".dot");
+        let dot = document.querySelectorAll(".dot"),
+            currentSlide = 0,
+            interval;
 
         
         
@@ -268,8 +268,7 @@ window.addEventListener("DOMContentLoaded", (()=>{
             }
         });
 
-        
-
+        //добавление точек в слайдер
         const getDots = ()=>{
             let dotBlock = document.createElement("li");
                 

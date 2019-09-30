@@ -294,4 +294,43 @@ window.addEventListener("DOMContentLoaded", (()=>{
         
     };
     slider();
+
+    //смена фотографий
+    const changePhoto = ()=>{
+        const team = document.querySelector("#command .row");
+    
+        let firstLink;
+        
+
+        team.addEventListener("mouseover",()=>{
+            let target = event.target;
+            if(target.closest(".command__photo")){
+                firstLink = target.src;
+                target.src = target.dataset.img;
+            }
+        });
+        
+        team.addEventListener("mouseout",()=>{
+            let target = event.target;
+            if(target.closest(".command__photo")){
+                target.src = firstLink;
+            }
+        });
+            
+    };       
+    changePhoto();
+
+    //настройка калькулятора
+    const couterOptions = ()=>{
+        const calcBlock = document.querySelector(".calc-block");
+        
+        calcBlock.addEventListener('input', (event)=>{
+            let target = event.target;
+
+            if(target.closest("[type = number]")){
+                target.value = target.value.replace(/[^\S]/gi, "");
+            }
+        });
+    };
+    couterOptions();
 }));

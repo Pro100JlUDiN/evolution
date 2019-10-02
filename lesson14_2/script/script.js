@@ -51,7 +51,7 @@ window.addEventListener("DOMContentLoaded", (()=>{
             
         updateClock();
     };
-    countTimer("1 september 2019");
+    countTimer("1 october 2019");
 
     // меню
     const tuggleMenu = ()=>{
@@ -328,11 +328,14 @@ window.addEventListener("DOMContentLoaded", (()=>{
               calcDay = document.querySelector(".calc-day"),
               calcCount = document.querySelector(".calc-count"),
               totalValue = document.getElementById("total");
+
         
         const countSum = ()=>{
             let total = 0,
                 countValue = 1,
-                dayValue = 1;
+                dayValue = 1,
+                a = 0;
+                
             const typeValue = calcType.options[calcType.selectedIndex].value,
                   squareValue = calcSquare.value;
             
@@ -348,9 +351,26 @@ window.addEventListener("DOMContentLoaded", (()=>{
 
             if(typeValue && squareValue){
                 total = price * typeValue * squareValue * countValue * dayValue;
+                console.log(typeof total, total);
             }
+            
+            let priceAnimation = setInterval(()=>{
+                a = +totalValue.textContent;
+                if(a < total){
+                    totalValue.textContent = +totalValue.textContent + 1;
+                }else{
+                    fuStop();
+                }   
+                console.log(typeof a, a);
+            }, 5);
 
-            totalValue.textContent = total;
+
+            const fuStop = ()=>{
+                clearInterval(priceAnimation);
+                console.log("stop");
+            }
+            // totalValue.textContent = total;
+            
         };
 
         //запрет ввода букв

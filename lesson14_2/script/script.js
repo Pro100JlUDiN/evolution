@@ -393,4 +393,89 @@ window.addEventListener("DOMContentLoaded", (()=>{
     };
     calc(100);
     
+     //send-ajax-form
+     const sendForm = ()=>{
+        const errorMessage = "Что-то пошло не так :`(",
+              loadMessage = "Загрузка...",
+              successMessage = "Спасибо! Мы скоро с вами свяжемся!";
+        
+        //форма для заявки
+        const mainForm = document.getElementById("form1"),
+              popUpWindow = document.querySelector(".popup-content"),
+              bottomForm = document.getElementById("form2");
+        const statusMessage = document.createElement("div");
+        statusMessage.style.cssText = "font-size: 2rem; color: white";
+        
+        const treatmentForms = (form)=>{
+            //почва для очистки полей ввода
+            let inputArr = [];
+            form.addEventListener("change", ()=>{
+                inputArr.push(event.target);
+            });
+
+            //добавление сообщений состояния
+            form.addEventListener("submit", (event)=>{
+                event.preventDefault();
+                form.appendChild(statusMessage);
+                statusMessage.textContent = loadMessage;
+                
+                const formData = new FormData(form);
+                let body = {};
+                
+                formData.forEach((val, key)=>{
+                    body[key] = val;
+                });
+                postData(body,()=>{
+                    statusMessage.textContent = successMessage;
+                    inputArr.forEach(item => item.value = "");
+                },
+                (error)=>{
+                    statusMessage.textContent = errorMessage;
+                    console.error(error);
+                });
+
+            });
+
+            // отправка данных
+            const postData = (body, outputData, errorData)=>{
+                const request = new XMLHttpRequest();
+
+                request.addEventListener("readystatechange", ()=>{
+                    if(request.readyState !== 4){
+                        return;
+                    }
+                    if(request.status === 200){
+                        outputData();
+                    }else{
+                        errorData(request.status);
+                    }
+                });
+
+                request.open("POST", "./server.php");
+                //если сервер воспринимает только JSON (2arg)
+                request.setRequestHeader("Content-Type", "application/json");
+                
+                request.send(JSON.stringify(body)); //если сервер воспринимает только JSON
+            };
+
+            //валидация форм
+            form.addEventListener("input", (event)=>{
+                let target = event.target;
+                // ввод только кириллицы для ввода имени и сообщения
+                if(target.closest('[type = "text"]') || target.closest(".mess")){
+                    target.value = target.value.replace(/[^А-я ]/g, "");
+                }
+                // ввод только цифр и "+"
+                if(target.closest('[type = "tel"]')){
+                    target.value = target.value.replace(/[^\+\d]/gi, "");
+                }
+            });
+            
+        };
+        treatmentForms(mainForm);
+        treatmentForms(popUpWindow);
+        treatmentForms(bottomForm);
+    };
+    sendForm();
+
 }));

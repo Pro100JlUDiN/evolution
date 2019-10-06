@@ -351,7 +351,6 @@ window.addEventListener("DOMContentLoaded", (()=>{
 
             if(typeValue && squareValue){
                 total = price * typeValue * squareValue * countValue * dayValue;
-                console.log(typeof total, total);
             }
             
             let priceAnimation = setInterval(()=>{
@@ -361,15 +360,13 @@ window.addEventListener("DOMContentLoaded", (()=>{
                 }else{
                     fuStop();
                 }   
-                console.log(typeof a, a);
             }, 5);
 
 
             const fuStop = ()=>{
                 clearInterval(priceAnimation);
                 console.log("stop");
-            }
-            // totalValue.textContent = total;
+            };
             
         };
 
@@ -392,20 +389,23 @@ window.addEventListener("DOMContentLoaded", (()=>{
         
     };
     calc(100);
-    
-     //send-ajax-form
-     const sendForm = ()=>{
-        const errorMessage = "Что-то пошло не так :`(",
-              loadMessage = "Загрузка...",
-              successMessage = "Спасибо! Мы скоро с вами свяжемся!";
+
+    //send-ajax-form
+    const sendForm = ()=>{
+        const errorMessage = "./images/error.gif",
+              loadMessage = "./images/loading.gif",
+              successMessage = "./images/kote.jpg";
         
         //форма для заявки
         const mainForm = document.getElementById("form1"),
               popUpWindow = document.getElementById("form3"),
               bottomForm = document.getElementById("form2");
-        const statusMessage = document.createElement("div");
-        statusMessage.style.cssText = "font-size: 2rem; color: white";
+        // const statusMessage = document.createElement("div");
+        // statusMessage.style.cssText = "font-size: 2rem; color: white";
+        const statusMessage = document.createElement("img");
+
         
+        // обработка введенных данных и отправка
         const treatmentForms = (form)=>{
             //почва для очистки полей ввода
             let inputArr = [];
@@ -417,7 +417,7 @@ window.addEventListener("DOMContentLoaded", (()=>{
             form.addEventListener("submit", (event)=>{
                 event.preventDefault();
                 form.appendChild(statusMessage);
-                statusMessage.textContent = loadMessage;
+                statusMessage.src = loadMessage;
                 
                 const formData = new FormData(form);
                 let body = {};
@@ -426,11 +426,11 @@ window.addEventListener("DOMContentLoaded", (()=>{
                     body[key] = val;
                 });
                 postData(body,()=>{
-                    statusMessage.textContent = successMessage;
+                    statusMessage.src = successMessage;
                     inputArr.forEach(item => item.value = "");
                 },
                 (error)=>{
-                    statusMessage.textContent = errorMessage;
+                    statusMessage.src = errorMessage;
                     console.error(error);
                 });
 
@@ -473,9 +473,8 @@ window.addEventListener("DOMContentLoaded", (()=>{
             
         };
         treatmentForms(mainForm);
-        treatmentForms(popUpWindow);//ошибки
+        treatmentForms(popUpWindow);
         treatmentForms(bottomForm);
     };
     sendForm();
-
 }));

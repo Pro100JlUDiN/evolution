@@ -401,7 +401,7 @@ window.addEventListener("DOMContentLoaded", (()=>{
         
         //форма для заявки
         const mainForm = document.getElementById("form1"),
-              popUpWindow = document.querySelector(".popup-content"),
+              popUpWindow = document.getElementById("form3"),
               bottomForm = document.getElementById("form2");
         const statusMessage = document.createElement("div");
         statusMessage.style.cssText = "font-size: 2rem; color: white";
@@ -452,7 +452,7 @@ window.addEventListener("DOMContentLoaded", (()=>{
                 });
 
                 request.open("POST", "./server.php");
-                //если сервер воспринимает только JSON (2arg)
+                //если сервер воспринимает только JSON
                 request.setRequestHeader("Content-Type", "application/json");
                 
                 request.send(JSON.stringify(body)); //если сервер воспринимает только JSON
@@ -473,7 +473,7 @@ window.addEventListener("DOMContentLoaded", (()=>{
             
         };
         treatmentForms(mainForm);
-        treatmentForms(popUpWindow);
+        treatmentForms(popUpWindow);//ошибки
         treatmentForms(bottomForm);
     };
     sendForm();

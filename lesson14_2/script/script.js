@@ -4,9 +4,9 @@ window.addEventListener("DOMContentLoaded", (()=>{
     // таймер
     const countTimer = (deadline)=>{
         
-        let timerHours = document.querySelector("#timer-hours"),
-            timerMinutes = document.querySelector("#timer-minutes"),
-            timerSeconds = document.querySelector("#timer-seconds");
+        let timerHours = document.getElementById("timer-hours"),
+            timerMinutes = document.getElementById("timer-minutes"),
+            timerSeconds = document.getElementById("timer-seconds");
 
         function getTimeRemaining(){
             let dateStop = new Date(deadline).getTime(),
@@ -51,7 +51,7 @@ window.addEventListener("DOMContentLoaded", (()=>{
             
         updateClock();
     };
-    countTimer("1 october 2019");
+    countTimer("9 october 2019");
 
     // меню
     const tuggleMenu = ()=>{
@@ -400,8 +400,6 @@ window.addEventListener("DOMContentLoaded", (()=>{
         const mainForm = document.getElementById("form1"),
               popUpWindow = document.getElementById("form3"),
               bottomForm = document.getElementById("form2");
-        // const statusMessage = document.createElement("div");
-        // statusMessage.style.cssText = "font-size: 2rem; color: white";
         const statusMessage = document.createElement("img");
 
         
@@ -425,11 +423,13 @@ window.addEventListener("DOMContentLoaded", (()=>{
                 formData.forEach((val, key)=>{
                     body[key] = val;
                 });
-                postData(body,()=>{
+
+                postData(body)
+                .then(()=>{
                     statusMessage.src = successMessage;
                     inputArr.forEach(item => item.value = "");
-                },
-                (error)=>{
+                })
+                .catch((error)=>{
                     statusMessage.src = errorMessage;
                     console.error(error);
                 });
@@ -437,25 +437,28 @@ window.addEventListener("DOMContentLoaded", (()=>{
             });
 
             // отправка данных
-            const postData = (body, outputData, errorData)=>{
-                const request = new XMLHttpRequest();
+            const postData = (body)=>{
+                return new Promise((resolve,reject)=>{
 
-                request.addEventListener("readystatechange", ()=>{
-                    if(request.readyState !== 4){
-                        return;
-                    }
-                    if(request.status === 200){
-                        outputData();
-                    }else{
-                        errorData(request.status);
-                    }
+                    const request = new XMLHttpRequest();
+    
+                    request.addEventListener("readystatechange", ()=>{
+                        if(request.readyState !== 4){
+                            return;
+                        }
+                        if(request.status === 200){
+                            resolve();
+                        }else{
+                            reject(request.status);
+                        }
+                    });
+    
+                    request.open("POST", "./server.php");
+                    //если сервер воспринимает только JSON
+                    request.setRequestHeader("Content-Type", "application/json");
+                    
+                    request.send(JSON.stringify(body)); //если сервер воспринимает только JSON
                 });
-
-                request.open("POST", "./server.php");
-                //если сервер воспринимает только JSON
-                request.setRequestHeader("Content-Type", "application/json");
-                
-                request.send(JSON.stringify(body)); //если сервер воспринимает только JSON
             };
 
             //валидация форм

@@ -3,38 +3,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const select = document.getElementById('cars'),
           output = document.getElementById('output');
-        //  carsObj = "./cars.json";
 
-    const getCars = new Promise((resolve, reject)=>{
+    select.addEventListener('change', ()=>{
+        let promise = new Promise((resolve, reject)=>{
             const request = new XMLHttpRequest();
             request.open('GET', "./cars.json");
+            request.setRequestHeader('Content-Type', 'application/json');
+            request.send();
+
             request.addEventListener('readystatechange', () => {
-                if (request.readyState === 4 && request.status === 200) {
-                    const data = JSON.parse(request.responseText);
-                    resolve(data);
+                if(request.readyState !== 4){
+                    return;
+                }
+                if ( request.status === 200) {
+                    resolve(request);
                 } else {
-                    reject('Произошла ошибка');
-                    console.log(request);
+                    reject(new Error(request.statusText));
                 }
             });
-            request.setRequestHeader('Content-type', 'application/json');
-            request.send();
-    });
-
-    const choiseCar = (data)=>{
-        data.cars.forEach(item => {
-            if (item.brand === select.value) {
-                const {brand, model, price} = item;
-                output.innerHTML = `Тачка ${brand} ${model} <br>
-                Цена: ${price}$`;
-            }
+            
         });
-    };
 
+        const getCars = (request)=>{
+            const data = JSON.parse(request.responseText);
+            data.cars.forEach(item => {
+                if (item.brand === select.value) {
+                    const {brand, model, price} = item;
+                    output.innerHTML = `Тачка ${brand} ${model} <br>
+                    Цена: ${price}$`;
+                }
+            });
+        };
 
-    select.addEventListener('change', 
-    getCars
-    .then((choiseCar, error => output.innerHTML = error))
-    );
+        promise
+            .then(getCars)
+            .catch((error)=>{
+                output.innerHTML = 'Произошла ошибка';
+                console.error(error);
+            });
+    });
+    
 
 });

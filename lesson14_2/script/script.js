@@ -437,7 +437,7 @@ window.addEventListener("DOMContentLoaded", (()=>{
                     console.error(error);
                 });
 
-            });
+            }); 
 
             // отправка данных
             const postData = (body)=>{

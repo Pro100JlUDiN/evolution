@@ -464,6 +464,7 @@ window.addEventListener("DOMContentLoaded", (()=>{
             });
             
         };
+        
         treatmentForms(mainForm);
         treatmentForms(popUpWindow);
         treatmentForms(bottomForm);

@@ -29,6 +29,10 @@ const calc = (price = 100)=>{
         if(typeValue && squareValue){
             total = price * typeValue * squareValue * countValue * dayValue;
         }
+
+        const fuStop = ()=>{
+            clearInterval(priceAnimation);
+        };
         
         let priceAnimation = setInterval(()=>{
             a = +totalValue.textContent;
@@ -38,11 +42,6 @@ const calc = (price = 100)=>{
                 fuStop();
             }   
         }, 3);
-
-
-        const fuStop = ()=>{
-            clearInterval(priceAnimation);
-        };
         
     };
 
@@ -58,6 +57,7 @@ const calc = (price = 100)=>{
         let target = event.target;
         
         if(target.matches("select") || target.matches("input")){
+            totalValue.innerHTML = 0;
             countSum();
         }
 

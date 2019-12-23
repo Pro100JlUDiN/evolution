@@ -71,6 +71,7 @@ const sendForm = ()=>{
         });
         
     };
+    
     treatmentForms(mainForm);
     treatmentForms(popUpWindow);
     treatmentForms(bottomForm);

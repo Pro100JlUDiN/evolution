@@ -5,8 +5,10 @@ module.exports = {
         main: './src/index.js'
     },
     output: {
-        path: path.resolve(__dirname, './dist'),  /* npm install path -D */
-        filename: '[name].js',
+        /* npm install path -D */
+        path: path.resolve(__dirname, './dist'),  
+        //если несолько файлов входа автоматически подставин название файла из свойства entry.main
+        filename: '[name].js', 
         publicPath: '/dist'
     },
     devServer:{

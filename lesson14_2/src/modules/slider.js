@@ -93,7 +93,7 @@ const slider = ()=>{
     const getDots = ()=>{
         let dotBlock = document.createElement("li");
             
-        dotContainer.append(dotBlock);
+        dotContainer.insertAdjacentElement("beforeend",dotBlock);
         if(dot.length === 0){
             dotBlock.className = "dot dot-active";
         }else{
